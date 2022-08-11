@@ -1,5 +1,6 @@
 import React from "react";
 import searchMan from "../src/Images/searchMan.jpeg";
+import "./header.css";
 
 const Header = () => {
   return (

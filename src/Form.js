@@ -1,16 +1,13 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import _ from "lodash";
+import LanguageDisplay from "./LanguageDisplay";
+import "./form.css";
 
 const Form = () => {
   const [username, setUsername] = useState("");
   const [data, setData] = useState([]);
   const [usedLanguages, setUsedLanguages] = useState("");
   const languages = {};
-  const maxKey = _.max(
-    Object.keys(usedLanguages),
-    (usedLanguage) => usedLanguages[usedLanguage]
-  );
 
   useEffect(() => {
     if (username !== "") {
@@ -54,27 +51,21 @@ const Form = () => {
             </div>
           ))
         : null}
-
-      {usedLanguages !== undefined && (
-        <div>
-          <h1>{maxKey}</h1>
-        </div>
-      )}
-
+      <LanguageDisplay usedLanguages={usedLanguages} />
       <form>
         <fieldset>
           <label>
-            <p>username</p>
+            <p> Github username </p>
             <input
               name="username"
+              type="text"
+              placeholder="Your github username..."
               onChange={(event) => handleChange(event)}
               value={username}
             />
           </label>
         </fieldset>
-        <button onClick={handleClick} type="submit">
-          Submit
-        </button>
+        <input onClick={handleClick} type="submit" />
       </form>
     </>
   );
