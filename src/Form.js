@@ -47,7 +47,7 @@ const Form = () => {
 
   return (
     <>
-      {data
+      {data && !usedLanguages
         ? Object.entries(data).map(([key, value]) => (
             <div key={key}>
               <p>{value.language}</p>
