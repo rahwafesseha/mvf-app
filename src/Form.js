@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import LanguageDisplay from "./LanguageDisplay";
 import "./form.css";
+import _ from "lodash";
 
 const Form = () => {
   const [username, setUsername] = useState("");
@@ -16,7 +17,6 @@ const Form = () => {
         .get(`https://api.github.com/users/${username}/repos`)
         .then((res) => {
           Object.entries(res.data).map(([key, value]) => {
-            console.log({ languages });
             if (value.language === null) {
               return "";
             }
@@ -30,6 +30,10 @@ const Form = () => {
           });
           setData(res.data);
           setUsedLanguages(languages);
+        })
+        .catch((error) => {
+          console.log("error", error);
+          setUsedLanguages({});
         });
     }
   }, [username]);
@@ -56,8 +60,8 @@ const Form = () => {
             </div>
           ))
         : null}
-
       {visible && <LanguageDisplay usedLanguages={usedLanguages} />}
+
       <form onSubmit={handleSubmit}>
         <fieldset>
           <label>

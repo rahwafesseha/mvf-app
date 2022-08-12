@@ -2,11 +2,11 @@ import React from "react";
 import _ from "lodash";
 
 const LanguageDisplay = (props) => {
-
-  const maxKey = _.max(
-    Object.keys(props.usedLanguages),
-    (usedLanguage) => props.usedLanguages[usedLanguage]
+  const maxKey = Object.keys(props.usedLanguages).reduce(
+    (a, b) => (props.usedLanguages[a] > props.usedLanguages[b] ? a : b),
+    0
   );
+
   return (
     props.usedLanguages !== undefined && (
       <div>
