@@ -5,6 +5,7 @@ import "./form.css";
 
 const Form = () => {
   const [username, setUsername] = useState("");
+  const [visible, setVisible] = useState(false);
   const [data, setData] = useState([]);
   const [usedLanguages, setUsedLanguages] = useState("");
   const languages = {};
@@ -34,12 +35,16 @@ const Form = () => {
   }, [username]);
 
   const handleChange = (event) => {
-    event.preventDefault();
+    // event.preventDefault();
     setUsername(event.target.value);
   };
 
-  const handleClick = (event) => {
+  const handleSubmit = (event) => {
+    event.preventDefault();
+
     setUsername(username);
+    alert("You have submitted the form.");
+    setUsername("");
   };
 
   return (
@@ -51,8 +56,9 @@ const Form = () => {
             </div>
           ))
         : null}
-      <LanguageDisplay usedLanguages={usedLanguages} />
-      <form>
+
+      {visible && <LanguageDisplay usedLanguages={usedLanguages} />}
+      <form onSubmit={handleSubmit}>
         <fieldset>
           <label>
             <p> Github username </p>
@@ -65,7 +71,9 @@ const Form = () => {
             />
           </label>
         </fieldset>
-        <input onClick={handleClick} type="submit" />
+        <button onClick={() => setVisible(true)} type="submit">
+          Submit
+        </button>
       </form>
     </>
   );
